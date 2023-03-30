@@ -1,6 +1,6 @@
 plugins {
     `java-library`
-    kotlin("jvm") version "1.5.0"
+    kotlin("jvm") version "1.5.31"
     signing
     `maven-publish`
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
@@ -62,8 +62,8 @@ dependencies {
 
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
     withSourcesJar()
     withJavadocJar()
 }
@@ -71,8 +71,8 @@ java {
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions {
-        jvmTarget = "1.8"
-        freeCompilerArgs = listOf("-Xjvm-default=enable")
+        jvmTarget = "11"
+        freeCompilerArgs = listOf("-Xjvm-default=enable", "-java-parameters")
     }
 }
 
@@ -82,7 +82,7 @@ tasks.withType<Test> {
 }
 
 val jacksonCompatVersions = mapOf(
-    "2.9" to (0..10), "2.10" to (0..5), "2.11" to (0..4), "2.12" to (0..3)
+    "2.9" to (9..10), "2.10" to (4..5), "2.11" to (0..4), "2.12" to (0..5), "2.13" to (0..0)
 ).flatMap { (majorMinor, patchVersions) -> patchVersions.map { "$majorMinor.$it" } }
 
 for (compatVersion in jacksonCompatVersions) {
@@ -154,9 +154,11 @@ publishing {
 }
 
 
+/*
 signing {
     sign(publishing.publications["mavenJava"])
 }
+*/
 
 
 nexusPublishing {

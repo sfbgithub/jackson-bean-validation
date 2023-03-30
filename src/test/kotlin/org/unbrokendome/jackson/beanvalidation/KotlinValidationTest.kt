@@ -259,6 +259,6 @@ class KotlinValidationTest : AbstractValidationTest() {
         val violations = assertViolationsOnDeserialization<ContainerIndexBean>(json)
 
         assertThat(violations).hasSize(1)
-        assertThat(violations).hasViolation<UniqueData>("nested.value")
+        assertThat(violations).hasViolation<UniqueData>("nested[1].value")
     }
 }
